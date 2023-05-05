@@ -1,0 +1,18 @@
+<div class='card' style='width: 100%;'>
+  <div class='card-body'>
+    <h5 class='card-title'>
+      <img
+        src='{{comment.createdBy.profile.avatar}}'
+        style='width: 50px; height: 50px'
+        class='rounded'
+      />
+      {{comment.createdBy.username}}
+      {{comment.createdBy.profile.bio}}
+      {{comment.createdBy.profile.socials}}
+    </h5>
+    <h6 class='card-subtitle mb-2 text-muted'>{{comment.createdAt}}{{#if
+        (dates_ne comment.createdAt comment.updatedAt)
+      }}, edited {{comment.updatedAt}} {{/if}}</h6>
+    <p class='card-text'>{{comment.content}}</p>
+  </div>
+</div>

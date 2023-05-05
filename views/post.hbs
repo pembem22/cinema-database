@@ -1,0 +1,9 @@
+{{#> layout }}
+  <div class="my-5">
+    <h1>Post #{{ post.id }}</h1>
+    {{{ post.content }}}
+  </div>
+  {{#each post.comments}}
+    {{> comment comment=this }}
+  {{/each}}
+{{/layout}}
