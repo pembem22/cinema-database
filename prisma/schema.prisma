@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model complexes {
+  id      Int     @id(map: "complexes_pk") @default(autoincrement())
+  name    String  @db.VarChar
+  address String  @db.VarChar
+  halls   halls[]
+}
+
+model customers {
+  id      Int       @id(map: "customers_pk") @default(autoincrement())
+  name    String    @db.VarChar
+  phone   String    @unique(map: "customers_un") @db.VarChar
+  email   String    @unique(map: "customers_un_1") @db.VarChar
+  tickets tickets[]
+}
+
+model halls {
+  id          Int         @id(map: "halls_pk") @default(autoincrement())
+  name        String      @db.VarChar
+  description String      @db.VarChar
+  complex_id  Int
+  complexes   complexes   @relation(fields: [complex_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "halls_fk")
+  showtimes   showtimes[]
+}
+
+model movies {
+  id          Int                      @id(map: "movies_pk") @default(autoincrement())
+  title       String                   @db.VarChar
+  description String                   @db.VarChar
+  imdb_id     String                   @db.VarChar
+  runtime     Unsupported("interval")?
+  showtimes   showtimes[]
+}
+
+model payments {
+  id             Int       @id(map: "payments_pk") @default(autoincrement())
+  amount         Int
+  created_at     DateTime  @default(now()) @db.Timestamp(6)
+  type           String    @db.VarChar
+  transaction_id String?   @db.VarChar
+  tickets        tickets[]
+}
+
+model showtimes {
+  id       Int       @id(map: "showtimes_pk") @default(autoincrement())
+  time     DateTime  @db.Timestamp(6)
+  movie_id Int
+  hall_id  Int
+  price    Int
+  movies   movies    @relation(fields: [movie_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "showtimes_fk")
+  halls    halls     @relation(fields: [hall_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "showtimes_fk_1")
+  tickets  tickets[]
+
+  @@unique([hall_id, time], map: "showtimes_un")
+}
+
+model tickets {
+  id          Int        @id(map: "tickets_pk") @default(autoincrement())
+  seat        Int
+  showtime_id Int
+  payment_id  Int
+  customer_id Int?
+  showtimes   showtimes  @relation(fields: [showtime_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tickets_fk")
+  payments    payments   @relation(fields: [payment_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tickets_fk_1")
+  customers   customers? @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tickets_fk_2")
+}
