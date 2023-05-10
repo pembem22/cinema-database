@@ -1,0 +1,49 @@
+{{#> layout }}
+  <h1>Фільми</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Фільм</th>
+        <th scope="col">Продано квитків</th>
+        <th scope="col">Прибуток</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each movies}}
+        <tr>
+          <th scope="row">{{math @index "+" 1}}</th>
+          <td>{{this.title}}</td>
+          <td>{{this.count}}</td>
+          <td>{{this.box_office}}₴</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h1>Зали</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Зал</th>
+        <th scope="col">Комплекс</th>
+        <th scope="col">Продано квитків</th>
+        <th scope="col">Прибуток</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each halls}}
+        <tr>
+          <th scope="row">{{math @index "+" 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.complex_name}}</td>
+          <td>{{this.count}}</td>
+          <td>{{this.box_office}}₴</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/layout}}

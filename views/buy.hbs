@@ -1,0 +1,47 @@
+{{#> layout }}
+    <h1>{{ showtime.title }}</h2>
+    <p>{{ showtime.description }}</p>
+    <hr>
+    <p>
+        <span class="fs-4">{{ time }} -- {{ showtime.price }}₴</span>
+        <br>
+        <span class="fs-6">{{ showtime.hall_name }}, {{ showtime.complex_name }}</span>
+    </p>
+    <hr>
+
+
+    <form class="d-flex flex-column" method="POST">
+        <div class="d-flex flex-row align-items-center justify-content-center my-1">
+             <svg height="100" width="600">
+                <path d="M 0 30 q 300 -20 600 0" stroke="black" fill="none"/>
+                <text x="300" y="45" text-anchor="middle">ЕКРАН</text>
+            </svg>
+        </div>
+
+        {{#each rows}}
+            <div class="d-flex flex-row align-items-center justify-content-center my-1">
+                {{#each this.seats}}
+                    {{#if this.available}}
+                    <input type="checkbox" class="btn-check" id="seat-{{this.seat}}" name="seats" value="{{this.seat}}" autocomplete="off">
+                    <label class="btn btn-outline-success btn-sm me-1" style="width: 36px" for="seat-{{this.seat}}">{{this.seat}}</label>
+                    {{else}}
+                    <input type="checkbox" class="btn-check" id="seat-{{this.seat}}" name="seats" value="{{this.seat}}" autocomplete="off">
+                    <label class="btn btn-secondary btn-sm me-1" style="width: 36px" for="seat-{{this.seat}}">{{this.seat}}</label>
+                    {{/if}}
+                {{/each}}
+                <span>Ряд {{this.number}}</span>
+            </div>
+        {{/each}}
+
+        <div class="d-flex flex-row align-items-center justify-content-center my-3">
+            <select name="payment" class="form-select" style="max-width: 200px">
+                <option value="cash">Готівка</option>
+                <option value="terminal">Термінал</option>
+                <option value="online">Онлайн</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Купити</button>
+        </div>
+    </form>
+
+{{/layout}}

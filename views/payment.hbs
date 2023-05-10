@@ -1,0 +1,22 @@
+{{#> layout }}
+    <span style="font-size: xx-large;">✅</span>
+    <h1>Дякуємо за покупку!</h1>
+
+    <p>
+      Платіж №{{payment.id}}, {{time}}
+      <br>
+      Сума оплати: {{payment.amount}}₴
+      <br>
+      Спосіб оплати: {{payment.type}}, номер транзакції: {{payment.transaction_id}}
+    </p>
+
+    {{#each tickets}}
+      <hr>
+      <h4>{{ this.title }}</h4>
+      <p>
+        {{ this.complex_name }}, {{ this.address }}
+        <br>
+        {{ this.seat }} місце, зал {{ this.hall_name }} -- {{ this.price }}₴
+      </p>
+    {{/each}}
+{{/layout}}

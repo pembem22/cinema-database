@@ -1,0 +1,19 @@
+{{#> layout }}
+  <h1>Сеанси на {{ time }}</h1>
+  {{#each groups}}
+    <div class="my-5">
+      <h3>{{ this.title }}</h3>
+      <hr>
+      {{#each this.showtimes}}
+        <a href="/showtimes/{{ this.id }}" type="button" class="btn btn-outline-primary" role="button">{{ this.time }}</a>
+        {{!-- <p>
+          <a href="/showtimes/{{ this.id }}">
+            <span class="fs-4">{{ this.time }} -- {{ this.movies.title }}</span>
+            <br>
+            <span class="fs-6">{{ this.halls.name }}, {{ this.halls.complexes.name }}</span>
+          </a>
+        </p> --}}
+      {{/each}}
+    </div>
+  {{/each}}
+{{/layout}}
